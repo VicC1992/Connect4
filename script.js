@@ -54,12 +54,7 @@ function fillCells() {
     checkWinner();
 }
 
-function checkWinner() {
-    if (clickCounter >= 42 && winner != player1 && winner != player2) {
-        winner = "Draw!!";
-        gameOver(winner);
-    }
-
+function horizontalCheck() {
     for (let i = 0; i < nrRows; ++i) {
         for (j = 0; j < nrColumns - 3; ++j) {
             if (circle[i][j] != " " && circle[i][j] == circle[i][j + 1] && circle[i][j + 1] == circle[i][j + 2] && circle[i][j + 2] == circle[i][j + 3]) {
@@ -68,7 +63,9 @@ function checkWinner() {
             }
         }
     }
+}
 
+function verticalCheck() {
     for (let i = 0; i < nrColumns; ++i) {
         for (let j = 0; j < nrRows - 3; ++j) {
             if (circle[j][i] != " " && circle[j][i] == circle[j + 1][i] && circle[j + 1][i] == circle[j + 2][i] && circle[j + 2][i] == circle[j + 3][i]) {
@@ -77,7 +74,9 @@ function checkWinner() {
             }
         }
     }
+}
 
+function diagonalCheck() {
     for (let i = 0; i < nrRows - 3; ++i) {
         for (let j = 0; j < nrColumns - 3; ++j) {
             if (circle[i][j] != " " && circle[i][j] == circle[i + 1][j + 1] && circle[i + 1][j + 1] == circle[i + 2][j + 2] && circle[i + 2][j + 2] == circle[i + 3][j + 3]) {
@@ -95,6 +94,16 @@ function checkWinner() {
             }
         }
     }
+}
+
+function checkWinner() {
+    if (clickCounter >= 42 && winner != player1 && winner != player2) {
+        winner = "Draw!!";
+        gameOver(winner);
+    }
+    horizontalCheck();
+    verticalCheck();
+    diagonalCheck();
 }
 
 let winnerBlock = document.getElementById("winnerBlock");
